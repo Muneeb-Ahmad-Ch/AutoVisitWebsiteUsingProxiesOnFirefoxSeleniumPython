@@ -10,21 +10,11 @@ class Bot ():  # using Undetected Chrome Web driver
     def start(self, headless=False):
         print('...')
         options = uc.ChromeOptions()
-        # options.add_argument('--no-sandbox')
-        # options.add_argument('--blink-settings=imagesEnabled=false')
 
         options.add_argument('--disable-gpu')
         if headless:
             options.headless = True
             options.add_argument('--headless')
-
-        # options = {
-        #     'proxy': {
-        #         'http': 'socks5://user:pass@192.168.10.100:8888',
-        #         'https': 'socks5://user:pass@192.168.10.100:8888',
-        #         'no_proxy': 'localhost,127.0.0.1'
-        #     }
-        # }
 
         self.driver = uc.Chrome(options=options)
 
@@ -92,14 +82,8 @@ class Bot ():  # using Undetected Chrome Web driver
                     .move_to_element(div).click().perform()
                 print('clicked')
                 return
-            # text = div.text
-            # print(text)
-            # text = div.
-            # print(text)
-        # return adds
 
     def click_on_google_site(self, website):
-        # //cite
         xpath = "//cite"
 
         self.wait_xpath(xpath)
@@ -116,8 +100,8 @@ class Bot ():  # using Undetected Chrome Web driver
                 return
 
     def change_ip(self, proxy):
-        # Change the proxy
-        #  {
+        # Change the proxy  # format
+        # proxy =  {
         #     'http': 'http://192.168.10.100:8888',
         #     'https': 'https://192.168.10.100:8888',
         #     'no_proxy': 'localhost,127.0.0.1'
