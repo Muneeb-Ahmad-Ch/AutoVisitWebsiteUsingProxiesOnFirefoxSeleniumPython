@@ -81,11 +81,12 @@ class Bot ():  # using Undetected Chrome Web driver
         #     'https': 'https://192.168.10.100:8888',
         #     'no_proxy': 'localhost,127.0.0.1'
         # }
-        self.driver.proxy = {
-            'http': f'http://{ip}:{port}',
-            'https': f'https://{ip}:{port}',
-            'no_proxy': 'localhost,127.0.0.1'
-        }
+        # self.driver.proxy = {
+        #     'http': f'http://{ip}:{port}',
+        #     'https': f'https://{ip}:{port}',
+        #     'no_proxy': 'localhost,127.0.0.1'
+        # }
+
         sleep(2)
 
     def what_is_my_ip(self):
