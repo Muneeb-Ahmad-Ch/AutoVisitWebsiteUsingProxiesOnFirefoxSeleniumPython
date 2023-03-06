@@ -1,41 +1,28 @@
 from utils import *
 
 
-class FireFoxBot ():  # using FireFox Web driver
+class Bot ():  # using Undetected Chrome Web driver
 
     def __init__(self) -> None:
         self.running_status = False
 
-    def Start(self, headless=False):
+    def start(self, headless=False):
         print('...')
-        options = webdriver.FirefoxOptions()
+        options = uc.ChromeOptions()
 
         if headless:
             options.headless = True
             options.add_argument('--headless')
 
-        # cur_path = pathlib.Path(__file__).parent.resolve()
-        # options.add_argument("--incognito")
-        # options.add_experimental_option('excludeSwitches', ['enable-logging'])
-        # self.driver = webdriver.Chrome(options=options , executable_path='chromedriver.exe')
-
-        # to get rid of save password popup
-        options.add_argument("--password-store=basic")
-        options.add_experimental_option(
-            "prefs",
-            {
-                "credentials_enable_service": False,
-                "profile.password_manager_enabled": False,
-            },
-        )
-        self.driver = webdriver.Firefox()
+        self.driver = uc.Chrome(options=options, seleniumwire_options={})
 
         self.wait = WebDriverWait(self.driver, 60)
         self.running_status = True
 
-    def Stop(self):
-        self.driver.quit()
-        self.running_status = False
+    def stop(self):
+        if self.running_status:
+            self.driver.quit()
+            self.running_status = False
 
     def goto(self, url):
         self.driver.get(url)
@@ -64,21 +51,14 @@ class FireFoxBot ():  # using FireFox Web driver
             return False
         return True
 
+    def start_browser(self):
+        self.stop()
+        self.start()
+        self.goto("https://www.google.com")
+
     def quit(self):
         self.driver.quit()
-    # custom functions
-
-    # def login(self):
-    #     print('Going to login.')
-    #     self.goto(BASE_URL)
-    #     print('Login Done.')
-
-    def scrap_items(self):
-        pass
-
-    def start_browser(self):
-        self.Start()
-        self.goto(BASE_URL)
 
     def __del__(self):
+        self.running_status = False
         self = None

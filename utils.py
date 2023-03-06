@@ -4,3 +4,5 @@ from selenium.webdriver.support.wait import WebDriverWait
 from time import sleep
 from selenium.webdriver.support import expected_conditions as ExpectedConditions
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
+import seleniumwire.undetected_chromedriver as uc
