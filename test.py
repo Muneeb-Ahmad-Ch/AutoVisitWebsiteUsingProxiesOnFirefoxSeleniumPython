@@ -5,8 +5,9 @@ if __name__ == '__main__':
     ##
     bot = Bot()
     bot.start_browser()
-    bot.wait_xpath("//input[@title='Search']")
-    search = bot.driver.find_element(
-        By.XPATH, "//input[@title='Search']")
-    search.send_keys(KEYWORD)
-    search.send_keys(Keys.ENTER)
+    bot.change_ip('139.99.135.214', '80')
+    print(f'{bot.what_is_my_ip()=}')
+    # bot.search_on_google(KEYWORD)
+
+    input('Press any key to quit...')
+    bot.quit()
