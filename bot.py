@@ -1,4 +1,5 @@
 from utils import *
+from variables import *
 
 
 class Bot ():  # using Undetected Chrome Web driver
@@ -10,7 +11,7 @@ class Bot ():  # using Undetected Chrome Web driver
         print('...')
         options = uc.ChromeOptions()
         # options.add_argument('--no-sandbox')
-        options.add_argument('--blink-settings=imagesEnabled=false')
+        # options.add_argument('--blink-settings=imagesEnabled=false')
 
         options.add_argument('--disable-gpu')
         if headless:
@@ -25,7 +26,7 @@ class Bot ():  # using Undetected Chrome Web driver
         #     }
         # }
 
-        self.driver = uc.Chrome(options=options, seleniumwire_options={})
+        self.driver = uc.Chrome(options=options)
 
         self.wait = WebDriverWait(self.driver, 60)
         self.running_status = True
@@ -74,18 +75,54 @@ class Bot ():  # using Undetected Chrome Web driver
         search.send_keys(search_string)
         search.send_keys(Keys.ENTER)
 
-    def change_ip(self, ip, port):
+    def click_on_google_ads_website(self, website):
+        # //div[count(span)=3 and span[1][text()='Ad']]
+        # xpath = "//div[count(span)=3 and span[1][text()='Ad']]"
+        xpath = "//*[@data-dtld]"
+
+        self.wait_xpath(xpath)
+        adds = self.driver.find_elements(
+            By.XPATH, xpath)
+        print(f'{len(adds)}=')
+        for div in adds:
+            text = div.text
+            print(text)
+            if website in div.text:
+                webdriver.ActionChains(self.driver)\
+                    .move_to_element(div).click().perform()
+                print('clicked')
+                return
+            # text = div.text
+            # print(text)
+            # text = div.
+            # print(text)
+        # return adds
+
+    def click_on_google_site(self, website):
+        # //cite
+        xpath = "//cite"
+
+        self.wait_xpath(xpath)
+        adds = self.driver.find_elements(
+            By.XPATH, xpath)
+        print(f'{len(adds)}=')
+        for div in adds:
+            text = div.text
+            print(text)
+            if website in div.text:
+                webdriver.ActionChains(self.driver)\
+                    .move_to_element(div).click().perform()
+                print('clicked')
+                return
+
+    def change_ip(self, proxy):
         # Change the proxy
         #  {
         #     'http': 'http://192.168.10.100:8888',
         #     'https': 'https://192.168.10.100:8888',
         #     'no_proxy': 'localhost,127.0.0.1'
         # }
-        # self.driver.proxy = {
-        #     'http': f'http://{ip}:{port}',
-        #     'https': f'https://{ip}:{port}',
-        #     'no_proxy': 'localhost,127.0.0.1'
-        # }
+        self.driver.proxy = proxy
 
         sleep(2)
 
